@@ -1,42 +1,30 @@
 
 
 
-
-M4={posi: {0:[0,0,0], 1:[1,0,1], 2:[0,1,1], 3:[-1,0,1], 4:[0,-1,1], 5:[0,0,2]}
-	vcol: {0:red,...,5:blue},
-	ecol: {0:{1:red,2:red,3:0,4:0}, 1:{5:0}, 2:{5:0}, 3:{5:0}, 4:{5:0},5:{}},
-	ucov: {0:[1,2,3,4], 1:[5], 2:[5], 3:[5], 4:[5],5:[]}} //upper covers
-
-
-
-
-
-var sphereList = new list([]);
-var myPath = new list([]);
+M4 = {posi: {0:[0,0,0], 1:[1,0,1], 2:[0,1,1], 3:[-1,0,1], 4:[0,-1,1], 5:[0,0,2]},
+//"vcol": {0:red,...,5:blue},
+//"ecol": {0:{1:red,2:red,3:0,4:0}, 1:{5:0}, 2:{5:0}, 3:{5:0}, 4:{5:0},5:{}},
+ucov: {0:[1,2,3,4], 1:[5], 2:[5], 3:[5], 4:[5],5:[]}} //upper covers
 
 Lattice2Babylon = function(L) {
-	for (let key in L) {  //key = posi,...
-		//let value = L[key];
+var sphereList = [];
+var myPath;
+var tube;
+var j;
+for (i in L.posi){
+	var sphere = BABYLON.Mesh.CreateSphere("sphere", 10, .1, scene); 
+	sphere.position = new BABYLON.Vector3(L.posi[i][0], L.posi[i][1], L.posi[i][2]); 
+	sphere.material = new BABYLON.StandardMaterial("sphere material",scene);
+}
 
-		if( key == "posi"){// for the positions
-			for (let subKey in L[key]){// subKey = 0,1,2,...
-				var sphere = BABYLON.Mesh.CreateSphere("sphere1", 10, .1, scene); //creating a new sphere
-				// L[key] = the whole first dictionary,
-				// L[key][subKey] = first position list
-				sphere.position = new BABYLON.Vector3(L[key][subKey][0], L[key][subKey][1], L[key][subKey][2]); //setting the dimensions
-				sphere.material = new BABYLON.StandardMaterial("sphere material",scene)
-				list.add(sphere);// can find spheres by list[0] would be point 0
-			}
-		}
-
-		if( key == "ucov"){// for the path of the tube
-			for (let subKey in L[key]){
-
-				mayPath.add([L["posi"][subKey][0], L["posi"][subKey][1], L["posi"][subKey][2]]) // we add the positions to the list
-
-			}
-		}	
+for(i in L.ucov){
+	for(k in L.ucov[i]){
+		j = L.ucov[i][k];
+		myPath = [ new BABYLON.Vector3(L.posi[i][0], L.posi[i][1], L.posi[i][2]) , new BABYLON.Vector3(L.posi[j][0], L.posi[j][1], L.posi[j][2])];
+		console.log(L.posi[i],L.posi[j]);
+		tube = BABYLON.MeshBuilder.CreateTube("tube", {path: myPath, radius: 0.01, sideOrientation: BABYLON.Mesh.DOUBLESIDE, updatable: true}, scene);
 	}
+}
 }
 
 Lattice2Mesh = function(L) {
