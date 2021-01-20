@@ -102,7 +102,7 @@
                         meshArray.push(tube);
                     }
                 }
-                return meshArray;
+                return BABYLON.Mesh.MergeMeshes(meshArray);//meshArray;
             }
 
             
@@ -126,8 +126,8 @@
   
             
             
-            //Lattice2Babylon(M4);
-            var M = Lattice2Mesh(M4);
+            var M = Lattice2Babylon(M4);
+            //var M = Lattice2Mesh(M4);
             //Lattice2Babylon(L);
 
 
