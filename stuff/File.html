@@ -90,7 +90,6 @@
                     var sphere = BABYLON.Mesh.CreateSphere("sphere", 10, .1, scene); 
                     sphere.position = new BABYLON.Vector3(L.posi[i][0], L.posi[i][1], L.posi[i][2]); 
                     sphere.material = new BABYLON.StandardMaterial("sphere material",scene);
-                    meshArray.push(sphere);
                 }
               
                 for(i in L.ucov){
@@ -99,7 +98,6 @@
                         myPath = [ new BABYLON.Vector3(L.posi[i][0], L.posi[i][1], L.posi[i][2]) , new BABYLON.Vector3(L.posi[j][0], L.posi[j][1], L.posi[j][2])];
                         console.log(L.posi[i],L.posi[j]);
                         tube = BABYLON.MeshBuilder.CreateTube("tube", {path: myPath, radius: 0.01, sideOrientation: BABYLON.Mesh.DOUBLESIDE, updatable: true}, scene);
-                        meshArray.push(tube);
                     }
                 }
                 return meshArray;
@@ -109,8 +107,60 @@
 
             Lattice2Mesh = function(L) {
                 var mesh = BABYLON.Mesh.MergeMeshes(Lattice2Babylon(L));
-                return mesh;
             }
+
+
+            //var mesh = BABYLON.Mesh.MergeMeshes([sphere, cube]);
+
+            //create shpere with mesh-builder that would include position
+            // cant be done withe mesh builder 
+
+            /* 
+            Example
+            var sphere = BABYLON.MeshBuilder.CreateSphere("sphere", options, scene); //scene is optional and defaults to the current scene
+            */
+
+
+            /*
+            var sphere0 = BABYLON.Mesh.CreateSphere("sphere1", 10, .1, scene);
+            var sphere1 = BABYLON.Mesh.CreateSphere("sphere2", 10, .1, scene);
+            var sphere2 = BABYLON.Mesh.CreateSphere("sphere3", 10, .1, scene);
+            var sphere3 = BABYLON.Mesh.CreateSphere("sphere4", 10, .1, scene);
+            var sphere4 = BABYLON.Mesh.CreateSphere("sphere5", 10, .1, scene);
+            var sphere5 = BABYLON.Mesh.CreateSphere("sphere6", 10, .1, scene);
+
+            // Moving elements
+            sphere0.position = new BABYLON.Vector3(0, 0, 0);
+            sphere1.position = new BABYLON.Vector3(1, 0, 1);
+            sphere2.position = new BABYLON.Vector3(-1, 0, 1);
+            sphere3.position = new BABYLON.Vector3(0, 1, 1);
+            sphere4.position = new BABYLON.Vector3(0, -1, 1);
+            sphere5.position = new BABYLON.Vector3(0, 0, 2);
+            */
+
+
+            /*
+            //Array of paths to construct tube
+            var myPath01 = [ sphere0.position, sphere1.position];
+            var myPath02 = [ sphere0.position, sphere2.position];
+            var myPath03 = [ sphere0.position, sphere3.position];
+            var myPath04 = [ sphere0.position, sphere4.position];
+            var myPath15 = [ sphere1.position, sphere5.position];
+            var myPath25 = [ sphere2.position, sphere5.position];
+            var myPath35 = [ sphere3.position, sphere5.position];
+            var myPath45 = [ sphere4.position, sphere5.position];
+            
+                
+            //Create ribbon with updatable parameter set to true for later changes
+            var tube01 = BABYLON.MeshBuilder.CreateTube("tube", {path: myPath01, radius: 0.01, sideOrientation: BABYLON.Mesh.DOUBLESIDE, updatable: true}, scene);
+            var tube02 = BABYLON.MeshBuilder.CreateTube("tube", {path: myPath02, radius: 0.01, sideOrientation: BABYLON.Mesh.DOUBLESIDE, updatable: true}, scene);
+            var tube03 = BABYLON.MeshBuilder.CreateTube("tube", {path: myPath03, radius: 0.01, sideOrientation: BABYLON.Mesh.DOUBLESIDE, updatable: true}, scene);
+            var tube04 = BABYLON.MeshBuilder.CreateTube("tube", {path: myPath04, radius: 0.01, sideOrientation: BABYLON.Mesh.DOUBLESIDE, updatable: true}, scene);
+            var tube15 = BABYLON.MeshBuilder.CreateTube("tube", {path: myPath15, radius: 0.01, sideOrientation: BABYLON.Mesh.DOUBLESIDE, updatable: true}, scene);
+            var tube25 = BABYLON.MeshBuilder.CreateTube("tube", {path: myPath25, radius: 0.01, sideOrientation: BABYLON.Mesh.DOUBLESIDE, updatable: true}, scene);
+            var tube35 = BABYLON.MeshBuilder.CreateTube("tube", {path: myPath35, radius: 0.01, sideOrientation: BABYLON.Mesh.DOUBLESIDE, updatable: true}, scene);
+            var tube45 = BABYLON.MeshBuilder.CreateTube("tube", {path: myPath45, radius: 0.01, sideOrientation: BABYLON.Mesh.DOUBLESIDE, updatable: true}, scene);
+            */
 
 
 
@@ -126,8 +176,7 @@
   
             
             
-            //Lattice2Babylon(M4);
-            var M = Lattice2Mesh(M4);
+            Lattice2Babylon(M4);
             //Lattice2Babylon(L);
 
 
@@ -148,13 +197,9 @@
             
             // Runs every frame to rotate the sphere
             scene.onBeforeRenderObservable.add(()=>{
-               //M.rotation.x += 0.0001*scene.getEngine().getDeltaTime();
-               M.rotation.y += 0.0005*scene.getEngine().getDeltaTime();
+                //sphere.rotation.y += 0.0001*scene.getEngine().getDeltaTime();
+                //sphere.rotation.x += 0.0001*scene.getEngine().getDeltaTime();
             })
-
- 
-
-
 
             return scene;
 
