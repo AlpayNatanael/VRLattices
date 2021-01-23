@@ -60,27 +60,8 @@
     <canvas id="renderCanvas"></canvas>
 
     <script>
-
-
-
-
-        var canvas = document.getElementById("renderCanvas");
-        var createDefaultEngine = function() { return new BABYLON.Engine(canvas, true, { preserveDrawingBuffer: true, stencil: true }); };
-        var createScene = function() {
-           
-            // Create scene
-            var scene = new BABYLON.Scene(engine);
-
-            var light = new BABYLON.DirectionalLight("light", new BABYLON.Vector3(0, -0.5, 1.0), scene);
-            light.position = new BABYLON.Vector3(0, 5, -2);
-
-            var camera = new BABYLON.ArcRotateCamera("camera1",  0, 0, 20, new BABYLON.Vector3(0, 0, 1), scene);
-            camera.attachControl(canvas, true);
-            scene.activeCamera.beta += 0.8;
-    
-            
-
-            Lattice2Babylon = function(L) {
+        
+        Lattice2Babylon = function(L,ipos, scene) {
                 var sphereList = [];
                 var myPath;
                 var tube;
@@ -88,7 +69,7 @@
                 var meshArray =[];
                 for (i in L.posi){
                     var sphere = BABYLON.Mesh.CreateSphere("sphere", 10, .1, scene); 
-                    sphere.position = new BABYLON.Vector3(L.posi[i][0], L.posi[i][1], L.posi[i][2]); 
+                    sphere.position = new BABYLON.Vector3(L.posi[i][0]+ipos[0], L.posi[i][1]+ipos[1], L.posi[i][2]+ipos[2]); 
                     sphere.material = new BABYLON.StandardMaterial("sphere material",scene);
                     meshArray.push(sphere);
                 }
@@ -96,7 +77,7 @@
                 for(i in L.ucov){
                     for(k in L.ucov[i]){
                         j = L.ucov[i][k];
-                        myPath = [ new BABYLON.Vector3(L.posi[i][0], L.posi[i][1], L.posi[i][2]) , new BABYLON.Vector3(L.posi[j][0], L.posi[j][1], L.posi[j][2])];
+                        myPath = [ new BABYLON.Vector3(L.posi[i][0]+ipos[0], L.posi[i][1]+ipos[1], L.posi[i][2]+ipos[2]) , new BABYLON.Vector3(L.posi[j][0]+ipos[0], L.posi[j][1]+ipos[1], L.posi[j][2]+ipos[2])];
                         console.log(L.posi[i],L.posi[j]);
                         tube = BABYLON.MeshBuilder.CreateTube("tube", {path: myPath, radius: 0.01, sideOrientation: BABYLON.Mesh.DOUBLESIDE, updatable: true}, scene);
                         meshArray.push(tube);
@@ -120,15 +101,35 @@
                 //"ecol": {0:{1:red,2:red,3:0,4:0}, 1:{5:0}, 2:{5:0}, 3:{5:0}, 4:{5:0},5:{}},
                 ucov: {0:[1,2,3,4], 1:[5], 2:[5], 3:[5], 4:[5],5:[]}} //upper covers
             
-            L = {posi: {0:[-2,0,0], 1:[2,0,0]},
-                ucov: {0:[1], 1:[]}} //upper covers
+            L = {posi: {0:[0,0,0], 1:[0,0,1] ,2:[0,0,2]}, 
+                ucov: {0:[1], 1:[2] , 2:[]}} //upper covers
             
   
             
             
-            var M = Lattice2Babylon(M4);
+
+
+
+        var canvas = document.getElementById("renderCanvas");
+        var createDefaultEngine = function() { return new BABYLON.Engine(canvas, true, { preserveDrawingBuffer: true, stencil: true }); };
+        var createScene = function() {
+           
+            // Create scene
+            var scene = new BABYLON.Scene(engine);
+
+            var light = new BABYLON.DirectionalLight("light", new BABYLON.Vector3(0, 0, -10), scene);
+            //light.position = new BABYLON.Vector3(0, 5, -2);
+
+            // Parameters: name, alpha, beta, radius, target position, scene
+            var camera = new BABYLON.ArcRotateCamera("camera1",  -Math.PI/2, 0, 20, new BABYLON.Vector3(0, 0, 0), scene);
+            camera.attachControl(canvas, true);
+            //scene.activeCamera.beta += 0.8;
+            //camera.rotation.beta = 45 ;
+            
+
+            var M = Lattice2Babylon(M4,[0,0,0] ,scene);
             //var M = Lattice2Mesh(M4);
-            //Lattice2Babylon(L);
+            var M1 = Lattice2Babylon(L,[2,0,0] ,scene);
 
 
             
@@ -149,7 +150,8 @@
             // Runs every frame to rotate the sphere
             scene.onBeforeRenderObservable.add(()=>{
                //M.rotation.x += 0.0001*scene.getEngine().getDeltaTime();
-               M.rotation.y += 0.0005*scene.getEngine().getDeltaTime();
+               //M.rotation.y += 0.0005*scene.getEngine().getDeltaTime();
+               M.rotation.z += 0.0005*scene.getEngine().getDeltaTime();
             })
 
  
