@@ -1,24 +1,22 @@
 <!DOCTYPE html>
 
 <html>
-    <!--script type="text/javascript" src="posets.js"></script--> 
-    <script type="text/javascript" src="code.js"></script> 
+  <!--script type="text/javascript" src="posets.js"></script-->
+  <script type="text/javascript" src="code.js"></script>
 
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>VR objects</title>
 
-    <head>
-
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>VR objects</title>
-
-        <!-- Babylon.js -->
-        <!--script src="https://code.jquery.com/pep/0.4.2/pep.min.js"></script>
+    <!-- Babylon.js -->
+    <!--script src="https://code.jquery.com/pep/0.4.2/pep.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.6.2/dat.gui.min.js"></script>
         <script src="https://preview.babylonjs.com/ammo.js"></script>
         <script src="https://preview.babylonjs.com/cannon.js"></script>
         <script src="https://preview.babylonjs.com/Oimo.js"></script>
         <script src="https://preview.babylonjs.com/earcut.min.js"></script-->
-        <script src="https://preview.babylonjs.com/babylon.js"></script>
-        <!--script src="https://preview.babylonjs.com/materialsLibrary/babylonjs.materials.min.js"></script>
+    <script src="https://preview.babylonjs.com/babylon.js"></script>
+    <!--script src="https://preview.babylonjs.com/materialsLibrary/babylonjs.materials.min.js"></script>
         <script src="https://preview.babylonjs.com/proceduralTexturesLibrary/babylonjs.proceduralTextures.min.js"></script>
         <script src="https://preview.babylonjs.com/postProcessesLibrary/babylonjs.postProcess.min.js"></script>
         <script src="https://preview.babylonjs.com/loaders/babylonjs.loaders.js"></script>
@@ -26,166 +24,203 @@
         <script src="https://preview.babylonjs.com/gui/babylon.gui.min.js"></script>
         <script src="https://preview.babylonjs.com/inspector/babylon.inspector.bundle.js"></script-->
 
+    <style>
+      html,
+      body {
+        overflow: hidden;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
 
+      #renderCanvas {
+        width: 100%;
 
-        <style>
+        height: 100%;
 
-            html, body {
+        touch-action: none;
+      }
+    </style>
+  </head>
 
-                overflow: hidden;
-                width: 100%;
-                height: 100%;
-                margin: 0;
-                padding: 0;
-            }
-
-
-
-            #renderCanvas {
-
-                width: 100%;
-
-                height: 100%;
-
-                touch-action: none;
-
-            }
-
-        </style>
-
-    </head>
-
-<body>
-
+  <body>
     <canvas id="renderCanvas"></canvas>
 
     <script>
-        
-        Lattice2Babylon = function(L,ipos, scene) {
-                var sphereList = [];
-                var myPath;
-                var tube;
-                var j;
-                var meshArray =[];
-                for (i in L.posi){
-                    var sphere = BABYLON.Mesh.CreateSphere("sphere", 10, .1, scene); 
-                    sphere.position = new BABYLON.Vector3(L.posi[i][0]+ipos[0], L.posi[i][1]+ipos[1], L.posi[i][2]+ipos[2]); 
-                    sphere.material = new BABYLON.StandardMaterial("sphere material",scene);
-                    meshArray.push(sphere);
-                }
-              
-                for(i in L.ucov){
-                    for(k in L.ucov[i]){
-                        j = L.ucov[i][k];
-                        myPath = [ new BABYLON.Vector3(L.posi[i][0]+ipos[0], L.posi[i][1]+ipos[1], L.posi[i][2]+ipos[2]) , new BABYLON.Vector3(L.posi[j][0]+ipos[0], L.posi[j][1]+ipos[1], L.posi[j][2]+ipos[2])];
-                        console.log(L.posi[i],L.posi[j]);
-                        tube = BABYLON.MeshBuilder.CreateTube("tube", {path: myPath, radius: 0.01, sideOrientation: BABYLON.Mesh.DOUBLESIDE, updatable: true}, scene);
-                        meshArray.push(tube);
-                    }
-                }
-                return BABYLON.Mesh.MergeMeshes(meshArray);//meshArray;
-            }
+      Lattice2Babylon = function (L, ipos, scene) {
+        // A function that takes in a the following paramets
+        // - lattice: lattice coordinates
+        // - ipos: the connections
+        // - scene: the scene in which to draw the lattice
+        var sphereList = [];
+        var myPath;
+        var tube;
+        var j;
+        var meshArray = [];
+        for (i in L.posi) {
+          var sphere = BABYLON.Mesh.CreateSphere("sphere", 10, 0.1, scene);
+          sphere.position = new BABYLON.Vector3(
+            L.posi[i][0] + ipos[0],
+            L.posi[i][1] + ipos[1],
+            L.posi[i][2] + ipos[2]
+          );
+          sphere.material = new BABYLON.StandardMaterial(
+            "sphere material",
+            scene
+          );
+          meshArray.push(sphere);
+        }
 
-            
+        for (i in L.ucov) {
+          for (k in L.ucov[i]) {
+            j = L.ucov[i][k];
+            myPath = [
+              new BABYLON.Vector3(
+                L.posi[i][0] + ipos[0],
+                L.posi[i][1] + ipos[1],
+                L.posi[i][2] + ipos[2]
+              ),
+              new BABYLON.Vector3(
+                L.posi[j][0] + ipos[0],
+                L.posi[j][1] + ipos[1],
+                L.posi[j][2] + ipos[2]
+              ),
+            ];
+            console.log(L.posi[i], L.posi[j]);
+            tube = BABYLON.MeshBuilder.CreateTube(
+              "tube",
+              {
+                path: myPath,
+                radius: 0.01,
+                sideOrientation: BABYLON.Mesh.DOUBLESIDE,
+                updatable: true,
+              },
+              scene
+            );
+            meshArray.push(tube);
+          }
+        }
+        return BABYLON.Mesh.MergeMeshes(meshArray); //meshArray;
+      };
 
-            Lattice2Mesh = function(L) {
-                var mesh = BABYLON.Mesh.MergeMeshes(Lattice2Babylon(L));
-                return mesh;
-            }
+      Lattice2Mesh = function (L) {
+        var mesh = BABYLON.Mesh.MergeMeshes(Lattice2Babylon(L));
+        return mesh;
+      };
 
-
-
-            //some lattices
-            M4 = {posi: {0:[0,0,0], 1:[1,0,1], 2:[0,1,1], 3:[-1,0,1], 4:[0,-1,1], 5:[0,0,2]},
-                //"vcol": {0:red,...,5:blue},
-                //"ecol": {0:{1:red,2:red,3:0,4:0}, 1:{5:0}, 2:{5:0}, 3:{5:0}, 4:{5:0},5:{}},
-                ucov: {0:[1,2,3,4], 1:[5], 2:[5], 3:[5], 4:[5],5:[]}} //upper covers
-            
-            L = {posi: {0:[0,0,0], 1:[0,0,1] ,2:[0,0,2]}, 
-                ucov: {0:[1], 1:[2] , 2:[]}} //upper covers
-            
   
-            
-            
+      var canvas = document.getElementById("renderCanvas");
+      var createDefaultEngine = function () {
+        return new BABYLON.Engine(canvas, true, {
+          preserveDrawingBuffer: true,
+          stencil: true,
+        });
+      };
+      var createScene = function () {
+        // Create scene
+        var scene = new BABYLON.Scene(engine);
+
+        var light = new BABYLON.DirectionalLight(
+          "light",
+          new BABYLON.Vector3(0, 0, -10),
+          scene
+        );
+        //light.position = new BABYLON.Vector3(0, 5, -2);
+
+        // Parameters: name, alpha, beta, radius, target position, scene
+        var camera = new BABYLON.ArcRotateCamera(
+          "camera1",
+          -Math.PI / 2,
+          0,
+          20,
+          new BABYLON.Vector3(0, 0, 0),
+          scene
+        );
+        camera.attachControl(canvas, true);
+        //scene.activeCamera.beta += 0.8;
+        //camera.rotation.beta = 45 ;
+
+        //////////////////////////   Lattices   //////////////////////////////////////////////////////////////////////////////
+
+        M4 = {
+            posi: {
+            0: [0, 0, 0],
+            1: [1, 0, 1],
+            2: [0, 1, 1],
+            3: [-1, 0, 1],
+            4: [0, -1, 1],
+            5: [0, 0, 2],
+            },
+            //"vcol": {0:red,...,5:blue},
+            //"ecol": {0:{1:red,2:red,3:0,4:0}, 1:{5:0}, 2:{5:0}, 3:{5:0}, 4:{5:0},5:{}},
+            ucov: { 0: [1, 2, 3, 4], 1: [5], 2: [5], 3: [5], 4: [5], 5: [] },
+        }; //upper covers
+
+        L = {
+            posi: { 0: [0, 0, 0], 1: [0, 0, 1], 2: [0, 0, 2] },
+            ucov: { 0: [1], 1: [2], 2: [] },
+        }; //upper covers
 
 
 
-        var canvas = document.getElementById("renderCanvas");
-        var createDefaultEngine = function() { return new BABYLON.Engine(canvas, true, { preserveDrawingBuffer: true, stencil: true }); };
-        var createScene = function() {
-           
-            // Create scene
-            var scene = new BABYLON.Scene(engine);
 
-            var light = new BABYLON.DirectionalLight("light", new BABYLON.Vector3(0, 0, -10), scene);
-            //light.position = new BABYLON.Vector3(0, 5, -2);
-
-            // Parameters: name, alpha, beta, radius, target position, scene
-            var camera = new BABYLON.ArcRotateCamera("camera1",  -Math.PI/2, 0, 20, new BABYLON.Vector3(0, 0, 0), scene);
-            camera.attachControl(canvas, true);
-            //scene.activeCamera.beta += 0.8;
-            //camera.rotation.beta = 45 ;
-            
-
-            var M = Lattice2Babylon(M4,[0,0,0] ,scene);
-            //var M = Lattice2Mesh(M4);
-            var M1 = Lattice2Babylon(L,[2,0,0] ,scene);
-
-
-            
-            // Default Environment
-            var environment = scene.createDefaultEnvironment({ enableGroundShadow: true, groundYBias: 1 });
-            environment.setMainColor(BABYLON.Color3.FromHexString("#74b9ff"))
-
-            // Shadows
-            var shadowGenerator = new BABYLON.ShadowGenerator(1024, light);
-            shadowGenerator.useBlurExponentialShadowMap = true;
-            shadowGenerator.blurKernel = 32;
-            //shadowGenerator.addShadowCaster(sphere, true);
-
-            // Enable VR
-            var vrHelper = scene.createDefaultVRExperience({createDeviceOrientationCamera:false});
-            vrHelper.enableTeleportation({floorMeshes: [environment.ground]});
-            
-            // Runs every frame to rotate the sphere
-            scene.onBeforeRenderObservable.add(()=>{
-               //M.rotation.x += 0.0001*scene.getEngine().getDeltaTime();
-               //M.rotation.y += 0.0005*scene.getEngine().getDeltaTime();
-               M.rotation.z += 0.0005*scene.getEngine().getDeltaTime();
-            })
-
- 
+        var M = Lattice2Babylon(M4, [0, 0, 0], scene);
+        //var M = Lattice2Mesh(M4);
+        var M1 = Lattice2Babylon(L, [2, 0, 0], scene);
 
 
 
-            return scene;
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        };
+        // Default Environment
+        var environment = scene.createDefaultEnvironment({
+          enableGroundShadow: true,
+          groundYBias: 1,
+        });
+        environment.setMainColor(BABYLON.Color3.FromHexString("#74b9ff"));
 
-            
-        var engine = createDefaultEngine();
+        // Shadows
+        var shadowGenerator = new BABYLON.ShadowGenerator(1024, light);
+        shadowGenerator.useBlurExponentialShadowMap = true;
+        shadowGenerator.blurKernel = 32;
+        //shadowGenerator.addShadowCaster(sphere, true);
 
-        if (!engine) throw 'engine should not be null.';
-        scene = createScene();;
-        var sceneToRender = scene
+        // Enable VR
+        var vrHelper = scene.createDefaultVRExperience({
+          createDeviceOrientationCamera: false,
+        });
+        vrHelper.enableTeleportation({ floorMeshes: [environment.ground] });
 
+        
+        ////////////////////   Rotations   //////////////////////////////////////////////////////////////////////////
 
-        engine.runRenderLoop(function () {
-            if (sceneToRender && sceneToRender.activeCamera) {
-                sceneToRender.render();
-            }
+        // Runs every frame to rotate the sphere
+        scene.onBeforeRenderObservable.add(() => {
+          //M.rotation.x += 0.0001*scene.getEngine().getDeltaTime();
+          //M.rotation.y += 0.0005*scene.getEngine().getDeltaTime();
+          M.rotation.z += 0.0005 * scene.getEngine().getDeltaTime();
         });
 
+        return scene;
+      };
 
+      var engine = createDefaultEngine();
 
-        // Resize
-        window.addEventListener("resize", function () {
-            engine.resize();
-        });
+      if (!engine) throw "engine should not be null.";
+      scene = createScene();
+      var sceneToRender = scene;
 
+      engine.runRenderLoop(function () {
+        if (sceneToRender && sceneToRender.activeCamera) {
+          sceneToRender.render();
+        }
+      });
+
+      // Resize
+      window.addEventListener("resize", function () {
+        engine.resize();
+      });
     </script>
-
-</body>
-
+  </body>
 </html>
-
