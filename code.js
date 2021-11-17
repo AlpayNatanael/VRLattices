@@ -25,6 +25,9 @@ Lattice2Babylon = function(L) {
 			tube = BABYLON.MeshBuilder.CreateTube("tube", {path: myPath, radius: 0.01, sideOrientation: BABYLON.Mesh.DOUBLESIDE, updatable: true}, scene);
 		}
 	}
+
+	// add a loop over vcol to make vertex colors.
+
 }
 
 Lattice2Mesh = function(L) {
