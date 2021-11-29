@@ -1,16 +1,180 @@
+
 <!DOCTYPE html>
 <html>
+  
 <title>W3.CSS Template</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Karma">
 <style>
+  * {
+  box-sizing: border-box;
+}
+
 body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
 .w3-bar-block .w3-bar-item {padding:20px}
+
+.wrap {
+width: 100%;
+}
+
+.floatleft {
+    float:left; 
+    width: 80%;
+    background-color: #ff0000;
+    height: 400px;
+}
+
+.floatright {
+float: right;
+    background-color: #00ff00;
+    height: 400px;
+    width: 20%;
+}
+
+
+body {
+  font-family: Arial;
+  padding: 10px;
+  background: #f1f1f1;
+}
+
+/* Header/Blog Title */
+.header {
+  padding: 30px;
+  text-align: center;
+  background: white;
+}
+
+.header h1 {
+  font-size: 50px;
+}
+
+/* Style the top navigation bar */
+.topnav {
+  overflow: hidden;
+  background-color: #333;
+}
+
+/* Style the topnav links */
+.topnav a {
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+/* Change color on hover */
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+/* Create two unequal columns that floats next to each other */
+/* Left column */
+.leftcolumn {
+  float: left;
+  width: 40%;
+}
+
+/* Right column */
+.rightcolumn {
+  float: left;
+  width: 60%;
+  background-color: #f1f1f1;
+  padding-left: 20px;
+}
+
+/* Fake image */
+.fakeimg {
+  background-color: #aaa;
+  width: 100%;
+  padding: 20px;
+}
+
+/* Add a card effect for articles */
+.card {
+  background-color: white;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.row{
+    margin-bottom: -90px;
+}
+
+/* Footer */
+.footer {
+  padding: 20px;
+  text-align: center;
+  background: #ddd;
+  margin-top: 20px;
+}
+
+.box {
+  width: 30%;
+  height: 200px;
+  border: 5px dashed #f7a239;
+}
+img {
+  width: 100%;
+  height: 100%;
+}
+
+p.normal {
+  font-style: normal;
+}
+
+p.italic {
+  font-style: italic;
+}
+
+p.oblique {
+  font-style: oblique;
+}
+
+
+li:not(:last-child) {
+    margin-bottom: 10px;
+}
+
+.logo{ 
+    	top:0; 
+    	left:0; 
+    } 
+
+
+.ctrl {
+    max-width: 30px;
+    position: relative;
+    bottom: 40px;
+    color: black;
+    text-align: left;
+    padding-left: 1%;
+    margin-bottom: -40px; /*added this line*/
+}
+
 </style>
 <body>
 
+
+
+
+<div class="header"> 
+  <h2>Lattices visualized as 3D-objects in a browser and in virtual reality </h2>
+  <h3> Authors: Natanael Alpay, Peter Jipsen. </h3>
+  <!-- <img src='./misc/logos/CU_logo.png' alt='Official logo' width='200px' height='75px'> -->
+
+</div> 
 <!-- Sidebar (hidden by default) -->
 <nav class="w3-sidebar w3-bar-block w3-card w3-top w3-xlarge w3-animate-left" style="display:none;z-index:2;width:40%;min-width:300px" id="mySidebar">
   <a href="javascript:void(0)" onclick="w3_close()"
@@ -20,56 +184,91 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
 </nav>
 
 <!-- Top menu -->
-<div class="w3-top">
+
+<!--
+  <div class="w3-top">
   <div class="w3-white w3-xlarge" style="max-width:1200px;margin:auto">
     <div class="w3-button w3-padding-16 w3-left" onclick="w3_open()">☰</div>
     <div class="w3-right w3-padding-16"></div>
     <div class="w3-center w3-padding-16">Lattices in Virtual Reality</div>
+ </div>
   </div>
 </div>
+  -->
 
-<hr id="about">
+  <div class ="row">
+  <div class="leftcolumn">
+    <div class ="card">
+    <h3> What is a lattice </h3>
 
-<!-- About Section -->
-<div class="w3-container w3-padding-32 w3-center">  
-  <h3>Abstract</h3><br>
+  </div>
+  </div>
+  <div class="rightcolumn">
+  <div class ="card">
+  <h3>Outline</h3>
   <p>
   Abstract algebra consists of the study of algebraic structures such as groups, rings, fields, modules, vector spaces, and algebras. Each of these mathematical structures has a subalgebra lattice and a congruence lattice, which are partially ordered structures that can be represented graphically in two or three dimensions. However, even for small algebraic structures these lattices can be large, and as the number of elements grow, can very easily get hard to be analyzed with pen and paper as a 2D projection on a plane. Using 3D models and virtual reality one can model lattices, and investigate these mathematical objects with better understanding and visualization of their form and properties. This is particularly helpful for students who have just been introduced to the concept of abstract algebraic structures, and gives them a tool to help visualize the abstract concepts. 
-</p>
-<p>
-We have developed JavaScript programs to visualize 3D models of lattices within the Babylon.js framework. This allows the lattices to be viewed as 3D objects in a standard web browser, as well as with a virtual reality headset. In the project, we will present a visualization of the lattice representation of a hypercube, the lattice of all preorders on a 3-element set with 26 elements, and the lattice of all preorders on a 4-element set which contains 355 elements.
-</P>  
-</div>
-<hr>
+  </p>
+  <p>
+  We have developed JavaScript programs to visualize 3D models of lattices within the Babylon.js framework. This allows the lattices to be viewed as 3D objects in a standard web browser, as well as with a virtual reality headset. In the project, we will present a visualization of the lattice representation of a hypercube, the lattice of all preorders on a 3-element set with 26 elements, and the lattice of all preorders on a 4-element set which contains 355 elements.
+  </P>  
+  </div>
+  </div>
+  </div>
+
+
+  <div class ="row">
+  <div class="leftcolumn">
+    <div class ="card">
+    <h3> How do we constract these lattices </h3>
+  </div>
+
+  <div class ="card">
+    <h3> References </h3>
+
+  </div>
+  </div>
+  
+  <div class="rightcolumn">
+  <div class ="card">
+  
+    <!-- First Photo Grid-->
+    <div class="w3-row-padding w3-padding-16 w3-center" id="food">
+    <div class="w3-quarter">
+    
+    <a href="./src/M_4_min.html" style="color: rgb(90, 10, 90); text-decoration:none" "> <img src="./misc/pictures/cube3(1).png" width="75%" height="75%"   style="width: 200px; height: 200px;" ><h3>An Octohedron</h3></a>
+    <p>Lattice descibtion.</p>
+    </div>
+    <div class="w3-quarter">
+      
+      <a href="./src/cube.html" style="color: rgb(90, 10, 90); text-decoration:none" "> <img src="./misc/pictures/hypercube5(1).png" width="75%" height="75%" style="width: 200px; height: 200px;"><h3>Simple Cube</h3></a>
+      <p>Lattice descibtion.</p>
+    </div>
+    <div class="w3-quarter">
+      
+      <a href="./src/Hypercube4.html" style="color: rgb(90, 10, 90); text-decoration:none" "> <img src="./misc/pictures/hypercube4(2).png" width="75%" height="75%" style="width: 200px; height: 200px;"> <h3>Hyper Cube 4</h3></a>
+      <p>Lattice descibtion.</p>
+    </div>
+    <div class="w3-quarter">
+      
+      <a href="./src/HyperCube5.html" style="color: rgb(90, 10, 90); text-decoration:none" "> <img src="./misc/pictures/hypercube5(1).png" width="75%" height="75%" style="width: 200px; height: 200px;"> <h3>Hyper Cube 5</h3></a>
+      <p>Lattice descibtion.</p>
+    </div>
+
+
+  </div>
+  </div>
+  </div>
+
   
 <!-- !PAGE CONTENT! -->
 <div class="w3-main w3-content w3-padding" style="max-width:1200px;margin-top:100px">
 
-  <!-- First Photo Grid-->
-  <div class="w3-row-padding w3-padding-16 w3-center" id="food">
-    <div class="w3-quarter">
-    <img src="./misc/pictures/cube3(1).png" width="75%" height="75%">
-    <a href="./src/M_4_min.html" style="color: rgb(90, 10, 90); text-decoration:none" "> <h3>An Octohedron</h3></a>
-    <p>Lattice descibtion.</p>
-    </div>
-    <div class="w3-quarter">
-      <img src="./misc/pictures/hypercube5(1).png" width="75%" height="75%">
-      <a href="./src/cube.html" style="color: rgb(90, 10, 90); text-decoration:none" "> <h3>Simple Cube</h3></a>
-      <p>Lattice descibtion.</p>
-    </div>
-    <div class="w3-quarter">
-      <img src="./misc/pictures/hypercube4(2).png" width="75%" height="75%">
-      <a href="./src/Hypercube4.html" style="color: rgb(90, 10, 90); text-decoration:none" "> <h3>Hyper Cube 4</h3></a>
-      <p>Lattice descibtion.</p>
-    </div>
-    <div class="w3-quarter">
-      <img src="./misc/pictures/hypercube5(1).png" width="75%" height="75%">
-      <a href="./src/HyperCube5.html" style="color: rgb(90, 10, 90); text-decoration:none" "> <h3>Hyper Cube 5</h3></a>
-      <p>Lattice descibtion.</p>
-    </div>
+
   </div>
   
   <!-- Second Photo Grid-->
+  <!--
   <div class="w3-row-padding w3-padding-16 w3-center">
   <div class="w3-row-padding w3-padding-16 w3-center" id="food">
     <div class="w3-quarter">
@@ -93,8 +292,9 @@ We have developed JavaScript programs to visualize 3D models of lattices within 
       <p>Lattice descibtion.</p>
     </div>
   </div>
-
+  -->
   <!-- Pagination -->
+  <!--
   <div class="w3-center w3-padding-32">
     <div class="w3-bar">
       <a href="#" class="w3-bar-item w3-button w3-hover-black">«</a>
@@ -105,10 +305,11 @@ We have developed JavaScript programs to visualize 3D models of lattices within 
       <a href="#" class="w3-bar-item w3-button w3-hover-black">»</a>
     </div>
   </div>
-  
+  -->
 
   
   <!-- Footer -->
+  <!--
   <footer class="w3-row-padding w3-padding-32">
     <div class="w3-third">
       <h3>FOOTER</h3>
@@ -122,7 +323,7 @@ We have developed JavaScript programs to visualize 3D models of lattices within 
      ll
     </div>
   </footer>
-
+  -->
 <!-- End page content -->
 </div>
 
