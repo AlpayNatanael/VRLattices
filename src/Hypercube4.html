@@ -59,7 +59,7 @@
         var j;
         var meshArray = [];
         for (i in L.posi) {
-          var sphere = BABYLON.Mesh.CreateSphere("sphere", 10, 0.1, scene);
+          var sphere = BABYLON.Mesh.CreateSphere("sphere", 10, 0.15, scene);
           sphere.position = new BABYLON.Vector3(
             L.posi[i][0] + ipos[0],
             L.posi[i][1] + ipos[1],
@@ -92,7 +92,7 @@
               "tube",
               {
                 path: myPath,
-                radius: 0.01,
+                radius: 0.015,
                 sideOrientation: BABYLON.Mesh.DOUBLESIDE,
                 updatable: true,
               },
@@ -123,7 +123,7 @@
 
         var light = new BABYLON.DirectionalLight(
           "light",
-          new BABYLON.Vector3(0, 0, -10),
+          new BABYLON.Vector3(0, -10, 10),
           scene
         );
         //light.position = new BABYLON.Vector3(0, 5, -2);

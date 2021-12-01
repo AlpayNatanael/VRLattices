@@ -62,7 +62,7 @@
           var sphere = BABYLON.Mesh.CreateSphere("sphere", 10, 0.2, scene);
           sphere.position = new BABYLON.Vector3(L.posi[i][0] + ipos[0], L.posi[i][1] + ipos[1], L.posi[i][2] + ipos[2]);
           sphere.material = new BABYLON.StandardMaterial("sphere material", scene);
-          sphere.material.diffuseColor = new BABYLON.Color3(0, 1, 0);
+          //sphere.material.diffuseColor = new BABYLON.Color3(0, 1, 0);
 
       
           meshArray.push(sphere);
@@ -83,6 +83,9 @@
               },
               scene
             );
+            tube.material = new BABYLON.StandardMaterial("sphere material", scene);
+            tube.material.diffuseColor = new BABYLON.Color3(1, 1, 1);
+
             meshArray.push(tube);
           }
         }
@@ -107,7 +110,7 @@
         scene.clearColor = new BABYLON.Color3(1,1,1);//.FromHexString("#74b9ff");//BABYLON.Color3(1, 1, 1);
 
         //scene.ambientColor = new BABYLON.Color3(1, 1, 1);
-        var light = new BABYLON.DirectionalLight("light", new BABYLON.Vector3(0, 0, -10), scene);
+        var light = new BABYLON.DirectionalLight("light", new BABYLON.Vector3(0, -10, -10), scene);// the good lighting position
         //light.position = new BABYLON.Vector3(0, 5, -2);
 
         // Parameters: name, alpha, beta, radius, target position, scene
