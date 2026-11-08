@@ -7,9 +7,8 @@
 
 
 
-Usful links to study VR object coding.
-
--Color
+Usful links to study VR object coding:
+- Color
 1. https://www.tutorialspoint.com/babylonjs/babylonjs_diffuse.htm1
 
 - Rotation
