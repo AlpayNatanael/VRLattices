@@ -1,24 +1,17 @@
-# VRLattices.github.io
 
 
 
 # For visualization, click : https://alpaynatanael.github.io/VRLattices/
-
-
 ## On going project
 
 
-
-# VR lattices 
-
-Original script source https://immersive-web.github.io/webxr-samples/
 
 
 Usful links
 
 -Color
 1. https://www.tutorialspoint.com/babylonjs/babylonjs_diffuse.htm1
-2. 
+2. https://immersive-web.github.io/webxr-samples/
 
 - Rotation
 1. https://www.babylonjs-playground.com/#A83GX#5
