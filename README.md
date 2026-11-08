@@ -1,4 +1,10 @@
 # VRLattices.github.io
+
+
+
+# For visualization, click : https://alpaynatanael.github.io/VRLattices/
+
+
 ## On going project
 
 
